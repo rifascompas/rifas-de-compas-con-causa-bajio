@@ -41,8 +41,8 @@
 
       --shadow-glass: 0 4px 32px 0 rgba(225,184,108,0.14), 0 1px 2px 0 rgba(0,0,0,0.06);
       --shadow-wallet: 0 10px 38px 0 rgba(225,184,108,0.18), 0 2px 8px 0 rgba(76,175,80,0.12);
-      --shadow-btn: 0 2px 18px 0 rgba(225,184,108,0.10);
-      --shadow-card: 0 6px 28px 0 rgba(225,184,108,0.16);
+      --shadow-btn: 0 2px 22px 0 rgba(225,184,108,0.14);
+      --shadow-card: 0 10px 44px 0 rgba(0,0,0,0.50);
 
       --font-main: 'Inter', 'SF Pro Display', system-ui, Arial, sans-serif;
 
@@ -50,6 +50,7 @@
       --transition-fast: .23s cubic-bezier(.42,.88,.43,1.37);
     }
 
+    /* Base */
     html,body{
       margin:0;padding:0;
       font-family:var(--font-main);
@@ -61,36 +62,41 @@
       scroll-behavior:smooth;
     }
 
-    /* NAVBAR */
+    /* ===== NAVBAR ===== */
     header{
       position:sticky;top:0;width:100vw;z-index:120;
       background:var(--blur-bg); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      box-shadow: var(--shadow-glass); border-bottom:1.5px solid rgba(225,184,108,0.08);
+      box-shadow: var(--shadow-glass); border-bottom:1.5px solid rgba(225,184,108,0.06);
+      transition: transform .45s ease, background .45s ease;
     }
     .navbar{
-      max-width:1080px;margin:0 auto;padding:10px 6vw;height:70px;display:flex;align-items:center;justify-content:space-between;
+      max-width:1120px;margin:0 auto;padding:10px 6vw;height:74px;display:flex;align-items:center;justify-content:space-between;
     }
 
-    /* BRAND: logo + text */
-    .navbar__brand { display:flex; align-items:center; gap:.85rem; }
+    /* BRAND */
+    .navbar__brand { display:flex; align-items:center; gap:.85rem; transform-origin:left center;}
     .brand-link { display:flex; align-items:center; gap:.85rem; text-decoration:none; color:inherit; }
     .brand-logo {
-      width:46px; height:auto;
-      border-radius:10px;
+      width:48px; height:auto;
+      border-radius:11px;
       border:2px solid var(--gold-soft);
       background:#111;
       padding:3px;
-      box-shadow:0 2px 12px rgba(225,184,108,0.18);
+      box-shadow:0 6px 22px rgba(225,184,108,0.12);
       display:block;
+      transition: transform .28s ease, box-shadow .28s ease;
     }
-    .brand-text { display:flex; flex-direction:column; line-height:1; }
+    .brand-logo:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 26px rgba(225,184,108,0.18); }
+
+    .brand-text { display:flex; flex-direction:column; line-height:1; transform: translateZ(0); }
     .brand-name {
       font-weight:900;
       color:var(--gold-soft);
       font-size:1.05rem;
       letter-spacing:0.01em;
       display:block;
-      text-shadow:0 1px 6px rgba(0,0,0,0.6);
+      text-shadow:0 1px 8px rgba(0,0,0,0.6);
+      transform: translateZ(0);
     }
     .brand-tag {
       font-weight:700;
@@ -113,55 +119,98 @@
     /* NAV DRAWER */
     nav.navbar__links{display:none;position:fixed;inset:0;z-index:110;opacity:0;pointer-events:none}
     nav.navbar__links.active{display:block;opacity:1;pointer-events:all}
-    .navbar__drawer{width:85vw;max-width:340px;height:100dvh;background:rgba(22,22,22,.98);border-right:4px solid var(--gold-dark);padding:36px 20px;border-radius:0 22px 22px 0;display:flex;flex-direction:column;gap:2.6em;animation:slideInLeft .6s}
+    .navbar__drawer{width:85vw;max-width:360px;height:100dvh;background:linear-gradient(180deg, rgba(18,18,18,0.98), rgba(16,16,16,0.995));border-right:4px solid var(--gold-dark);padding:36px 22px;border-radius:0 22px 22px 0;display:flex;flex-direction:column;gap:2.6em;animation:slideInLeft .6s}
     @keyframes slideInLeft{from{transform:translateX(-130%)}to{transform:translateX(0)}}
     .navbar__drawer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:1.25em;font-weight:800;font-size:1.15em}
     .navbar__drawer a{color:var(--gold-soft);text-decoration:none;padding:.5em .7em;border-radius:10px}
     .drawer-cta{display:inline-block;background:linear-gradient(94deg,var(--green-dark) 10%,var(--green) 94%);color:var(--white);padding:.9em 1.6em;border-radius:18px;font-weight:800;text-align:center;box-shadow:var(--shadow-btn)}
 
-    /* HERO */
-    .hero{min-height:calc(100dvh - 73px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:54px 5vw;background:radial-gradient(ellipse 95% 70% at 58% 20%,rgba(225,184,108,0.14) 8%,transparent 92%),var(--carbon)}
-    .hero__logo{border-radius:28px;border:2.5px solid var(--gold-soft);padding:14px;display:inline-block;box-shadow:0 20px 80px 0 var(--gold-dark)}
-    .hero__logo img{width:100px;border-radius:16px}
-    .hero__title{font-size:2.1em;color:var(--gold-soft);font-weight:900;margin:.5em 0;text-align:center;text-shadow:0 1px 20px rgba(0,0,0,.6)}
-    .hero__desc{font-size:1.12em;color:var(--white);opacity:.85;text-align:center;margin-bottom:28px}
-    .btn-ios{background:linear-gradient(94deg,var(--green-dark) 10%,var(--green) 94%);color:var(--white);padding:1em 2.1em;border-radius:28px;border:2px solid var(--gold-dark);font-weight:800;cursor:pointer;box-shadow:var(--shadow-btn);text-decoration:none;display:inline-block}
+    /* ===== HERO ===== */
+    .hero{
+      min-height:calc(100dvh - 80px);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:56px 5vw;background:
+      radial-gradient(ellipse 95% 70% at 58% 20%,rgba(225,184,108,0.12) 8%,transparent 92%),var(--carbon);
+      position:relative; overflow:hidden;
+    }
 
-    /* SECTION BASE */
-    .section{max-width:1050px;margin:0 auto;padding:64px 4vw 24px 4vw;display:flex;flex-direction:column;align-items:center}
-    .section__title{font-size:1.66em;font-weight:900;background:-webkit-linear-gradient(180deg,var(--gold-soft) 28%,var(--gold-dark) 75%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1.6em}
+    /* Subtle parallax layers */
+    .hero::before{
+      content:"";
+      position:absolute;inset:-20% -30% auto -30%;height:60%; background: radial-gradient(circle at 20% 30%, rgba(225,184,108,0.06), transparent 20%), radial-gradient(circle at 80% 60%, rgba(76,175,80,0.03), transparent 20%);
+      transform:translateZ(0);
+      pointer-events:none;
+    }
 
-    /* RIFAS: UNA SOLA TARJETA */
-    .rifas__cards{width:100%;max-width:860px;display:grid;gap:28px}
-    .rifa-card{background:linear-gradient(125deg,rgba(20,20,20,0.95) 6%,rgba(32,32,32,0.99) 100%);border-radius:18px;border:2px solid var(--gold-soft);box-shadow:var(--shadow-card);padding:18px;display:flex;flex-direction:column;align-items:center;min-height:420px;position:relative;overflow:hidden}
-    .rifa-card__hero{width:100%;max-width:920px;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:14px}
-    .rifa-card__img{width:100%;max-width:840px;height:auto;border-radius:12px;object-fit:cover;border:1.6px solid rgba(255,255,255,0.04);box-shadow:0 8px 32px rgba(0,0,0,0.6)}
-    .rifa-card__title{font-weight:900;color:var(--gold-soft);font-size:1.22em;margin-top:.6em;text-align:center}
-    .rifa-card__sub{color:var(--white);opacity:.82;font-weight:700;margin:.2em 0 .8em 0}
+    .hero__logo{border-radius:28px;border:2.5px solid var(--gold-soft);padding:12px;display:inline-block;box-shadow:0 24px 120px -24px var(--gold-dark);animation:logoPop .9s cubic-bezier(.2,1.2,.22,1)}
+    @keyframes logoPop{from{opacity:0;transform:scale(.72) rotate(-6deg)}50%{transform:scale(1.08)}to{opacity:1;transform:scale(1)}}
+    .hero__logo img{width:104px;border-radius:16px;display:block}
+    .hero__title{font-size:2.2em;color:var(--gold-soft);font-weight:900;margin:.6em 0;text-align:center;text-shadow:0 6px 30px rgba(0,0,0,.6);animation:fadeInUp .85s .12s both}
+    .hero__desc{font-size:1.14em;color:var(--white);opacity:.9;text-align:center;margin-bottom:28px;animation:fadeInUp .9s .2s both}
+    .btn-ios{background:linear-gradient(94deg,var(--green-dark) 10%,var(--green) 94%);color:var(--white);padding:1em 2.1em;border-radius:30px;border:2px solid var(--gold-dark);font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(76,175,80,0.12);text-decoration:none;display:inline-block;animation:glowCTA 2.4s infinite alternate}
+    @keyframes fadeInUp{from{transform:translateY(18px);opacity:0}to{transform:translateY(0);opacity:1}}
+    @keyframes glowCTA{from{box-shadow:0 8px 28px rgba(76,175,80,0.06)}to{box-shadow:0 20px 46px rgba(76,175,80,0.16)}}
+
+    /* ===== SECTION ===== */
+    .section{max-width:1120px;margin:0 auto;padding:64px 4vw 28px 4vw;display:flex;flex-direction:column;align-items:center}
+    .section__title{font-size:1.7em;font-weight:900;background:-webkit-linear-gradient(180deg,var(--gold-soft) 28%,var(--gold-dark) 75%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:1.8em}
+
+    /* ===== RIFAS / MAZDA CARD ===== */
+    .rifas__cards{width:100%;max-width:920px;display:grid;gap:28px}
+    .rifa-card{
+      background:linear-gradient(125deg, rgba(14,14,14,0.96) 6%, rgba(28,28,28,0.99) 100%);
+      border-radius:18px;border:2px solid rgba(225,184,108,0.14);
+      box-shadow: var(--shadow-card);
+      padding:18px; display:flex; flex-direction:column; align-items:center; min-height:460px; position:relative; overflow:visible;
+      transform:translateZ(0);
+      transition: transform .36s cubic-bezier(.22,.8,.39,1), box-shadow .36s;
+    }
+    .rifa-card:hover{ transform: translateY(-8px) scale(1.012); box-shadow: 0 28px 80px rgba(0,0,0,0.65); }
+
+    .rifa-card__hero{width:100%;max-width:920px;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative}
+    /* image reveal effect */
+    .rifa-card__img{
+      width:100%;max-width:880px;height:auto;border-radius:12px;object-fit:cover;border:1.6px solid rgba(255,255,255,0.03);box-shadow:0 10px 48px rgba(0,0,0,0.7);
+      transform:translateY(16px) scale(1.02);
+      opacity:0;
+      transition: transform .9s cubic-bezier(.2,1,.3,1), opacity .9s cubic-bezier(.2,1,.3,1), filter .5s;
+      will-change:transform,opacity;
+    }
+    .rifa-card__img.visible { transform: translateY(0) scale(1); opacity:1; filter:drop-shadow(0 18px 32px rgba(0,0,0,0.7)); }
+
+    .rifa-card__title{font-weight:900;color:var(--gold-soft);font-size:1.26em;margin-top:.8em;text-align:center;letter-spacing: -0.01em}
+    .rifa-card__sub{color:var(--white);opacity:.86;font-weight:700;margin:.2em 0 .8em 0}
     .rifa-card__price{font-weight:900;color:var(--green);margin-bottom:.8em}
+
+    /* Progress with animated stripes */
     .rifa-card__progress-wrap{width:92%;margin:.2em auto 1.1em auto}
-    .rifa-card__progress-inner{width:100%;height:12px;border-radius:10px;background:#1e1b13;border:1px solid var(--gold-dark);overflow:hidden}
-    .rifa-card__progress-bar{height:100%;width:0;border-radius:12px;background:linear-gradient(90deg,var(--gold-soft) 20%,var(--green) 92%);transition:width 1.2s ease}
-    .rifa-card__progress-info{display:flex;justify-content:space-between;font-weight:700;color:var(--gold-dark);opacity:.9;font-size:.95em;margin-top:.34em}
-    .rifa-card__btn{display:inline-block;margin-top:auto;background:linear-gradient(94deg,var(--gold-soft) 12%,var(--green) 92%);color:var(--carbon);padding:.95em 2.1em;border-radius:22px;font-weight:900;text-decoration:none;border:2px solid var(--gold-dark);box-shadow:var(--shadow-btn)}
+    .rifa-card__progress-inner{width:100%;height:14px;border-radius:12px;background:#111;border:1px solid rgba(225,184,108,0.06);overflow:hidden;position:relative}
+    .rifa-card__progress-bar{
+      height:100%;width:0;border-radius:12px;
+      background: linear-gradient(90deg, rgba(225,184,108,0.96) 10%, rgba(76,175,80,0.98) 90%);
+      position:relative;overflow:hidden;
+      transition: width 1.4s cubic-bezier(.25,.95,.25,1);
+    }
+    /* moving stripe overlay */
+    .rifa-card__progress-bar::before{
+      content:""; position:absolute; inset:0;
+      background: repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0 8px, rgba(0,0,0,0.04) 8px 16px);
+      mix-blend-mode: overlay; opacity:0.85;
+      animation: stripeMove 1.8s linear infinite;
+    }
+    @keyframes stripeMove { from { background-position:0 0 } to { background-position: 64px 0 } }
 
-    /* STEPS */
-    .steps__list{display:flex;flex-direction:column;gap:18px;width:100%;max-width:820px;margin:28px auto 0}
-    @media(min-width:840px){.steps__list{flex-direction:row;gap:34px}}
-    .step{background:rgba(34,34,34,0.9);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1.8px solid var(--gold-dark);min-width:170px}
-    .step__icon{font-size:2.2em;background:linear-gradient(124deg,var(--gold-soft) 22%,var(--green) 96%);-webkit-background-clip:text;color:transparent}
-    .step__label{font-weight:900;color:var(--gold-soft);margin-top:6px}
+    .rifa-card__progress-info{display:flex;justify-content:space-between;font-weight:700;color:var(--gold-dark);opacity:.95;font-size:.95em;margin-top:.34em}
 
-    /* ABOUT */
-    .about__us{background:rgba(30,30,30,0.77);border-radius:20px;padding:34px 20px;max-width:840px;margin:26px auto 34px;border:2px solid var(--gold-dark);color:var(--gold-dark);font-weight:700;text-align:center}
-
-    /* FOOTER */
-    footer{max-width:900px;margin:40px auto 26px auto;padding:28px 6vw;border-radius:20px;background:rgba(18,18,18,.95);border:2px solid var(--gold-dark);box-shadow:0 10px 40px rgba(0,0,0,.6);display:flex;flex-direction:column;gap:12px;align-items:center}
-    .footer__links{display:flex;gap:14px}
-    .footer__links a{color:var(--green);font-weight:800;text-decoration:none}
-    .footer__socials{display:flex;gap:12px}
-    .footer__socials a{width:36px;height:36px;border-radius:10px;background:rgba(40,40,40,.6);display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--gold-dark);color:var(--gold-soft);text-decoration:none}
-    .footer__seal{background:linear-gradient(94deg,var(--gold-dark) 14%,var(--green-dark) 85%);padding:6px 16px;border-radius:12px;color:var(--white);font-weight:900}
+    /* PARTICIPAR BUTTON (styled as CTA) */
+    .rifa-card__btn{
+      display:inline-block;margin-top:auto;background:linear-gradient(94deg,var(--gold-soft) 12%,var(--green) 92%);color:var(--carbon);padding:.95em 2.1em;border-radius:26px;font-weight:900;text-decoration:none;border:2px solid var(--gold-dark);box-shadow:0 16px 46px rgba(225,184,108,0.12);transition: transform .12s ease, box-shadow .18s;
+      position:relative; overflow:visible;
+    }
+    .rifa-card__btn::after{
+      content:""; position:absolute; right:14px; top:50%; transform:translateY(-50%); width:10px;height:10px;border-radius:50%; background:var(--gold-dark); box-shadow:0 6px 20px rgba(196,154,80,0.22);
+    }
+    .rifa-card__btn:hover{ transform:translateY(-3px); box-shadow:0 26px 66px rgba(225,184,108,0.18); }
 
     /* Small screens */
     @media(max-width:720px){
@@ -169,13 +218,36 @@
       .hero__title{font-size:1.8em}
     }
 
-    /* Fade / scroll animations */
-    .fade-in-y{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.33,.99,.33,.96)}
-    .visible{opacity:1;transform:none}
+    /* STEPS / ABOUT / FOOTER remain, minor animation */
+    .steps__list{display:flex;flex-direction:column;gap:18px;width:100%;max-width:820px;margin:28px auto 0;opacity:.98}
+    @media(min-width:840px){.steps__list{flex-direction:row;gap:34px}}
+    .step{background:rgba(34,34,34,0.9);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1.8px solid rgba(225,184,108,0.06);min-width:170px;transform:translateY(12px);opacity:0;transition: transform .6s cubic-bezier(.2,1,.3,1), opacity .6s}
+    .step.visible{transform:none;opacity:1}
+    .step__icon{font-size:2.2em;background:linear-gradient(124deg,var(--gold-soft) 22%,var(--green) 96%);-webkit-background-clip:text;color:transparent}
+    .step__label{font-weight:900;color:var(--gold-soft);margin-top:6px}
+
+    .about__us{background:rgba(30,30,30,0.77);border-radius:20px;padding:34px 20px;max-width:840px;margin:26px auto 34px;border:2px solid rgba(225,184,108,0.06);color:var(--gold-dark);font-weight:700;text-align:center;transform:translateY(12px);opacity:0;transition: all .6s}
+
+    footer{max-width:920px;margin:40px auto 26px auto;padding:28px 6vw;border-radius:20px;background:rgba(18,18,18,.95);border:2px solid rgba(225,184,108,0.06);box-shadow:0 10px 40px rgba(0,0,0,.6);display:flex;flex-direction:column;gap:12px;align-items:center;transform:translateY(12px);opacity:0;transition: all .6s}
+
+    .footer__links{display:flex;gap:14px}
+    .footer__links a{color:var(--green);font-weight:800;text-decoration:none}
+    .footer__socials{display:flex;gap:12px;transform:translateY(8px);opacity:0;transition:all .6s}
+    .footer__socials a{width:36px;height:36px;border-radius:10px;background:rgba(40,40,40,.6);display:inline-flex;align-items:center;justify-content:center;border:1px solid rgba(225,184,108,0.06);color:var(--gold-soft);text-decoration:none}
+
+    .visible-footer{transform:none;opacity:1;transition:all .6s}
+
+    /* small decorative confetti container */
+    #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 150; }
+
+    /* utilities */
+    .sr-only { position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
   </style>
 </head>
 <body>
-  <header>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <header id="pageHeader">
     <div class="navbar">
       <!-- BRAND: logo + texto de marca -->
       <div class="navbar__brand">
@@ -216,31 +288,33 @@
   </main>
 
   <!-- RIFAS ACTIVAS: UNA SOLA RIFA -->
-  <section class="section" id="rifas">
-    <h2 class="section__title">Rifas Activas</h2>
+  <section class="section" id="rifas" aria-labelledby="rifas-title">
+    <h2 id="rifas-title" class="section__title">Rifas Activas</h2>
     <div class="rifas__cards">
-      <article class="rifa-card fade-in-y" id="mazda-card">
+      <article class="rifa-card fade-in-y" id="mazda-card" aria-labelledby="mazda-title">
         <div class="rifa-card__hero">
           <!-- Imagen promocional: img/mazda.jpg -->
           <img src="img/mazda.jpg" alt="Mazda 3 2024 - Negro" class="rifa-card__img" id="mazdaImg" onerror="imgError(this)"/>
         </div>
 
-        <div class="rifa-card__title">Mazda 3 2024 — Negro</div>
+        <div id="mazda-title" class="rifa-card__title">Mazda 3 2024 — Negro</div>
         <div class="rifa-card__sub">Gran rifa de Año Nuevo · Rifas Guanajuato</div>
         <div class="rifa-card__price">Precio por número: $250</div>
 
         <div class="rifa-card__progress-wrap" aria-hidden="true">
           <div class="rifa-card__progress-inner" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso de boletos vendidos">
-            <div class="rifa-card__progress-bar" data-value="34"></div>
+            <div class="rifa-card__progress-bar" data-value="34" id="progressBar"></div>
           </div>
           <div class="rifa-card__progress-info">
             <span>Boletos vendidos</span>
-            <span>68 / 200</span>
+            <span id="progressText">68 / 200</span>
           </div>
         </div>
 
-        <!-- BOTON PARTICIPAR: link a la URL que enviaste -->
-        <a class="rifa-card__btn" href="https://www.asesoriamarketingdigital.com/s1-lista" target="_blank" rel="noopener noreferrer">Participar</a>
+        <!-- BOTON PARTICIPAR: link a la URL que enviaste (abre en nueva pestaña) -->
+        <a class="rifa-card__btn" id="participarBtn" href="https://www.asesoriamarketingdigital.com/s1-lista" target="_blank" rel="noopener noreferrer" aria-label="Participar en la rifa - Abrir enlace">
+          Participar
+        </a>
       </article>
     </div>
   </section>
@@ -269,13 +343,13 @@
 
   <!-- NOSOTROS -->
   <section class="section" id="nosotros" style="padding-top:0">
-    <div class="about__us">
+    <div class="about__us" id="aboutBox">
       “Nuestra razón de ser es transformar los sorteos en una experiencia con propósito. En Rifas Entre Amigos Guanajuato creemos que divertirse también puede ser una forma de ayudar. Cada número vendido representa una oportunidad de ganar y un aporte a causas reales.”
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
+  <footer id="siteFooter">
     <div class="footer__links">
       <a href="#">Aviso de privacidad</a>
       <a href="#">Términos y condiciones</a>
@@ -311,7 +385,7 @@
   </footer>
 
   <script>
-    // MENU
+    // ===== MENU =====
     const menuBtn = document.getElementById('menuBtn');
     const navbarLinks = document.getElementById('navbarLinks');
     menuBtn.addEventListener('click', () => {
@@ -323,24 +397,50 @@
       navbarLinks.classList.remove('active');
     }));
 
-    // SCROLL ANIMACION
-    function animateOnScroll(){
-      document.querySelectorAll('.fade-in-y').forEach(el=>{
-        const rect = el.getBoundingClientRect();
-        if(rect.top < window.innerHeight - 80) el.classList.add('visible');
+    // ===== IntersectionObserver for reveal animations (modern & performant) =====
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
       });
-    }
-    window.addEventListener('scroll', animateOnScroll, {passive:true});
-    window.addEventListener('DOMContentLoaded', () => {
-      animateOnScroll();
-      // iniciar barra de progreso
-      document.querySelectorAll('.rifa-card__progress-bar').forEach(bar=>{
-        const v = Math.max(0, Math.min(100, parseInt(bar.dataset.value || '0', 10)));
-        setTimeout(()=> bar.style.width = v + '%', 220);
-      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in-y, .step, .about__us, footer, .rifa-card__img, .footer__socials').forEach(el=>{
+      io.observe(el);
     });
 
-    // Manejo de imagenes rotas: setea un pequeño SVG inline coherente con la paleta
+    // When mazda image becomes visible, add visible class (image reveal)
+    const mazdaImg = document.getElementById('mazdaImg');
+    if(mazdaImg) {
+      const imgObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.classList.add('visible');
+            imgObserver.unobserve(e.target);
+          }
+        });
+      }, {threshold: 0.18});
+      imgObserver.observe(mazdaImg);
+    }
+
+    // Progress bar animate
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.rifa-card__progress-bar').forEach(bar=>{
+        const v = Math.max(0, Math.min(100, parseInt(bar.dataset.value || '0', 10)));
+        // Slight delay for entrance
+        setTimeout(()=> bar.style.width = v + '%', 320);
+      });
+
+      // reveal steps/footer/others in a small stagger for nicer entrance
+      document.querySelectorAll('.step').forEach((s,i)=> setTimeout(()=> s.classList.add('visible'), 360 + i*140));
+      setTimeout(()=> document.querySelector('.about__us')?.classList.add('visible'), 700);
+      setTimeout(()=> document.querySelector('footer')?.classList.add('visible'), 920);
+      setTimeout(()=> document.querySelector('.footer__socials')?.classList.add('visible'), 1100);
+    });
+
+    // ===== Image fallback (keeps previous behavior) =====
     function makeFallbackSVG(width=800, height=450, text='Imagen no disponible'){
       const bg = '#0b0b0b';
       const gold = '#e1b86c';
@@ -357,19 +457,96 @@
       } catch(e){ console.warn('fallback failed',e) }
     }
 
-    // Asegura que el logo tenga fallback si no está subido
+    // Attach fallback to logo & mazda (if missing)
     const siteLogo = document.getElementById('siteLogo');
     if(siteLogo) siteLogo.addEventListener('error', function(){ imgError(this) });
-
-    // Mazda image fallback
-    const mazdaImg = document.getElementById('mazdaImg');
     if(mazdaImg) mazdaImg.addEventListener('error', function(){ imgError(this) });
 
-    // Sugerencia: editar enlaces de redes desde la consola si quieres
-    // Ejemplo:
-    // document.getElementById('facebookLink').href = 'https://facebook.com/tuPagina'
-    // document.getElementById('instagramLink').href = 'https://instagram.com/tuCuenta'
-    // document.getElementById('whatsappLink').href = 'https://wa.me/5214761328415'
+    // ===== Parallax header shrink on scroll =====
+    const header = document.getElementById('pageHeader');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const s = window.scrollY;
+      if(s > 40){
+        header.style.transform = 'translateY(-6px)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+      lastScroll = s;
+    }, { passive: true });
+
+    // ===== Confetti micro-animation when clicking Participar (celebration) =====
+    (function confettiModule(){
+      const canvas = document.getElementById('confetti-canvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+
+      const particles = [];
+      function spawn(x,y){
+        const count = 28 + Math.round(Math.random()*20);
+        for(let i=0;i<count;i++){
+          particles.push({
+            x, y,
+            vx: (Math.random()-0.5)*8,
+            vy: (Math.random()*-8)-2,
+            r: 6 + Math.random()*8,
+            life: 60 + Math.round(Math.random()*40),
+            color: [ '--gold-soft','--gold-dark','--green' ][ Math.floor(Math.random()*3) ]
+          });
+        }
+      }
+      function draw(){
+        ctx.clearRect(0,0,W,H);
+        for(let i=particles.length-1;i>=0;i--){
+          const p = particles[i];
+          p.x += p.vx; p.y += p.vy; p.vy += 0.35; p.life--;
+          ctx.beginPath();
+          // color from CSS var
+          const col = getComputedStyle(document.documentElement).getPropertyValue(p.color.trim()) || '#e1b86c';
+          ctx.fillStyle = col;
+          // rotate small rectangles
+          ctx.save();
+          ctx.translate(p.x,p.y);
+          ctx.rotate((p.life%360)/20);
+          ctx.fillRect(-p.r/2, -p.r/2, p.r, p.r*0.6);
+          ctx.restore();
+          if(p.life <= 0 || p.y > H+50) particles.splice(i,1);
+        }
+        if(particles.length) requestAnimationFrame(draw);
+      }
+
+      // Trigger when clicking the participate button
+      document.getElementById('participarBtn')?.addEventListener('click', (e) => {
+        // spawn confetti near button
+        const rect = e.currentTarget.getBoundingClientRect();
+        spawn(rect.left + rect.width/2, rect.top + 10);
+        draw();
+        // allow natural navigation to the link target; confetti runs in parallel
+      });
+    })();
+
+    // Optional: small parallax on mousemove for hero (subtle)
+    (function heroParallax(){
+      const hero = document.querySelector('.hero');
+      if(!hero) return;
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = (e.clientX - rect.left)/rect.width - 0.5;
+        const y = (e.clientY - rect.top)/rect.height - 0.5;
+        hero.style.transform = `translate3d(${x*6}px, ${y*4}px, 0)`;
+        hero.style.transition = 'transform .2s linear';
+      });
+      hero.addEventListener('mouseleave', ()=> { hero.style.transform = ''; });
+    })();
+
+    // ===== Helpful console commands (instructions for you) =====
+    // From console you can set your social links:
+    // document.getElementById('facebookLink').href = 'https://facebook.com/tuPagina';
+    // document.getElementById('instagramLink').href = 'https://instagram.com/tuCuenta';
+    // document.getElementById('whatsappLink').href = 'https://wa.me/5214761328415';
   </script>
 </body>
 </html>
