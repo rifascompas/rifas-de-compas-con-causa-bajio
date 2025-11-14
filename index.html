@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <meta name="theme-color" content="#000000" />
+  <title>Rifas de Compas con Causa – Bajío México</title>
+  <!-- Google Fonts: Inter, fallback to system-ui -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    :root {
+      --gold-soft: #e1b86c;
+      --gold-dark: #c49a50;
+      --green: #4caf50;
+      --green-dark: #2e7d32;
+      --carbon: #000000;
+      --white: #ffffff;
+
+      --radius-xl: 22px;
+      --radius-md: 16px;
+      --blur-bg: rgba(30,30,30,0.82);
+
+      --shadow-glass: 0 4px 32px 0 rgba(225,184,108,0.14), 0 1px 2px 0 rgba(0,0,0,0.06);
+      --shadow-wallet: 0 10px 38px 0 rgba(225,184,108,0.18), 0 2px 8px 0 rgba(76,175,80,0.12);
+      --shadow-btn: 0 2px 18px 0 rgba(225,184,108,0.10);
+      --shadow-card: 0 6px 28px 0 rgba(225,184,108,0.16);
+
+      --font-main: 'Inter', 'SF Pro Display', system-ui, Arial, sans-serif;
+
+      --transition-main: .45s cubic-bezier(.22,.68,.48,1);
+      --transition-fast: .23s cubic-bezier(.42,.88,.43,1.37);
+    }
+    html,body {
+      font-family: var(--font-main);
+      margin:0; padding:0;
+      background:var(--carbon);
+      color:var(--white);
+      min-height:100vh;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      font-size: 17px;
+    }
+
+    /* ---- NAVBAR ---- */
+    header {
+      width: 100vw;
+      background: var(--blur-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: var(--shadow-glass);
+      border-bottom: 1.5px solid rgba(225,184,108,0.08);
+    }
+    .navbar {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 6vw 7px 6vw;
+      height: 70px;
+      position: relative;
+    }
+    .navbar__logo {
+      display:flex; align-items:center; justify-content: flex-start; gap:.7em;
+      font-weight: 900;
+      font-size:1.10em;
+      letter-spacing:0.03em;
+      color: var(--gold-soft);
+      text-shadow: 0 2px 16px #0003;
+    }
+    .navbar__logo img {
+      height: 44px; width:auto;
+      border-radius: 12px;
+      background: #111;
+      border: 2.5px solid var(--gold-soft);
+      padding: 2.5px;
+      box-shadow: 0 1px 10px 0 #e1b86c66;
+    }
+    /* Hamburguer Button */
+    .navbar__menu-btn {
+      background:none;
+      border:none;
+      outline:none;
+      cursor:pointer;
+      width:44px;height:44px;
+      display:flex;align-items:center;justify-content:center;
+      border-radius: 50%;
+      position: relative; z-index: 110;
+      transition: background var(--transition-fast);
+    }
+    .navbar__menu-btn:active, .navbar__menu-btn:hover { background:rgba(225,184,108,0.08);}
+    .navbar__menu-icon {
+      width: 26px; height: 26px; position:relative;
+    }
+    .navbar__menu-icon span {
+      display: block; position: absolute;
+      left: 3px; right: 3px; height: 4px;
+      border-radius: 3px;
+      background: var(--gold-soft);
+      transition: all .3s cubic-bezier(.63,1.33,.34,1.22);
+    }
+    .navbar__menu-icon span:nth-child(1) { top: 5px; }
+    .navbar__menu-icon span:nth-child(2) { top: 11px;}
+    .navbar__menu-icon span:nth-child(3) { top: 17px;}
+    .navbar__menu-btn.active .navbar__menu-icon span:nth-child(1){
+      transform:translateY(6px) rotate(45deg);
+    }
+    .navbar__menu-btn.active .navbar__menu-icon span:nth-child(2){ opacity:0;}
+    .navbar__menu-btn.active .navbar__menu-icon span:nth-child(3){
+      transform:translateY(-6px) rotate(-45deg);
+    }
+
+    /* NAV MENU DRAWER */
+    nav.navbar__links {
+      display:none; position:fixed; inset:0; z-index:100;
+      opacity:0; pointer-events: none; transition:opacity .33s;
+    }
+    nav.navbar__links.active { display:block; opacity:1; pointer-events:all;}
+    .navbar__drawer {
+      margin:0; background: rgba(22,22,22, .98);
+      border-right:4px solid var(--gold-dark);
+      box-shadow: 22px 0 90px 0 var(--gold-dark),0 0 1px #fff2;
+      height: 100dvh; width: 85vw; max-width:340px;
+      border-radius: 0 22px 22px 0;
+      position:fixed; left:0;top:0;
+      animation: slideInLeft .6s cubic-bezier(.32,.95,.44,1.11);
+      padding: 38px 27px 38px 17px;
+      display:flex; flex-direction:column;
+      gap:3.1em;
+    }
+    @keyframes slideInLeft { from { transform:translateX(-140%);} to{ transform:translateX(0);} }
+    .navbar__drawer ul {
+      list-style:none; padding:0; margin:0;
+      display:flex; flex-direction:column; gap:1.5em;
+      font-size: 1.28em;
+      font-weight:800;
+      letter-spacing: .03em;
+    }
+    .navbar__drawer a {
+      color: var(--gold-soft);
+      text-decoration: none;
+      border-radius:12px;
+      padding: .55em .85em;
+      display: block;
+      transition: background .18s;
+    }
+    .navbar__drawer a:hover { background:var(--gold-dark); color:var(--carbon);}
+    .drawer-cta {
+      margin-top:1.5em;
+      background:linear-gradient(94deg, var(--green-dark) 10%, var(--green) 94%);
+      color:var(--white);
+      border-radius: 20px;
+      padding: .88em 2em;
+      font-size:1.13em; font-weight:800;
+      border:none;
+      box-shadow: var(--shadow-btn);
+      text-align:center;
+      text-shadow: 0 1px 12px #0007;
+      letter-spacing: 0.02em;
+      transition:transform .17s;
+    }
+    .drawer-cta:active { transform:scale(.97); filter:brightness(.97);}
+    /* Desktop menu */
+    @media (min-width: 840px) {
+      .navbar__menu-btn {display:none;}
+      nav.navbar__links,
+      .navbar__drawer {all:unset;}
+      nav.navbar__links {
+        display:block !important; position:static; opacity:1; pointer-events:all;
+      }
+      .navbar__drawer {
+        background:none;border:none;box-shadow:none; border-radius:0;
+        padding:0; flex-direction:row; align-items:center; gap:2em;
+        width:auto;max-width:none;height:auto; position:static; animation:none;
+      }
+      .navbar__drawer ul {flex-direction:row; gap:1.4em; font-size:1em;}
+      .navbar__drawer .drawer-cta {margin:0 0 0 1.5em;}
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      min-height:calc(100dvh - 73px); padding:54px 5vw 48px 5vw;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:radial-gradient(ellipse 95% 70% at 58% 20%,rgba(225,184,108,0.18) 13%,transparent 92%), var(--carbon);
+      position: relative;
+      z-index:2;
+    }
+    .hero__logo-wrap {margin-bottom:1.9em;}
+    .hero__logo {
+      border-radius:30px; margin-bottom:.6em; border:2.7px solid var(--gold-soft);
+      background:linear-gradient(145deg, #111 38%, var(--carbon) 100%);
+      box-shadow:0 20px 90px 0 var(--gold-dark), 0 1.6px 20px #fff4;
+      padding:18px 21px 12px 21px; display:inline-block; position:relative;
+      animation: popIn .8s cubic-bezier(.42,2.18,.33,1.04);
+    }
+    .hero__logo::after{
+      content:''; display:block; position:absolute; left:50%; top:50%; z-index:-1;
+      width:188px; height:188px; transform:translate(-50%,-50%);
+      border-radius:52%;
+      box-shadow: 0 0 100px 20px var(--gold-dark);
+      opacity:.12;
+      animation: logoGlow 3.4s infinite alternate cubic-bezier(.88,0,.65,1);
+    }
+    @keyframes logoGlow { from {opacity:.13;} to {opacity:.25;} }
+    @keyframes popIn { from{opacity:.03;transform:scale(0.7) rotate(-6deg);} 62%{transform:scale(1.12);} to{opacity:1;transform:scale(1);} }
+    .hero__logo img { display:block; width:102px; height:auto; border-radius:21px; background:var(--carbon); border: 1.5px solid var(--gold-dark);}
+    .hero__title {
+      font-size:2.10em;
+      font-weight:900; letter-spacing:-0.007em; text-align:center;
+      color:var(--gold-soft);
+      margin:0 0 0.13em 0;
+      text-shadow:0 1px 20px var(--gold-dark), 0 2px 30px #0007;
+      animation: fadeInUp .83s .23s both cubic-bezier(.47,1.55,.37,.98);
+      line-height:1.13;
+    }
+    .hero__desc {
+      font-size:1.19em;
+      font-weight:600;
+      color: var(--white);
+      opacity: .82;
+      margin-bottom:32px;
+      text-align:center;
+      animation: fadeInUp 1.12s .4s both cubic-bezier(.32,1.31,.32,.97);
+    }
+    @keyframes fadeInUp { from{transform:translateY(24px); opacity:0;} to{transform:translateY(0); opacity:1;} }
+    .btn-ios {
+      background: linear-gradient(94deg, var(--green-dark) 10%, var(--green) 94%);
+      color:var(--white);
+      padding: 1em 2.2em;
+      border: none;
+      border-radius: 29px;
+      font-size:1.13em;
+      font-weight:800;
+      box-shadow: var(--shadow-btn);
+      outline:none;
+      letter-spacing:0.01em;
+      cursor:pointer;
+      position:relative;
+      animation:fadeInScale .84s .71s both cubic-bezier(.44,1.25,.32,1.01);
+      will-change:transform;
+      text-shadow: 0 .5px 14px #0006;
+      border:2px solid var(--gold-dark);
+      transition:box-shadow .19s,transform .13s,filter .16s;
+    }
+    @keyframes fadeInScale { from{opacity:0; transform:scale(.72);} 62%{transform:scale(1.11);} to{opacity:1; transform:scale(1);} }
+    .btn-ios:active {transform:scale(.98);filter:brightness(.96);box-shadow:0 1.7px 13px 0 var(--green);}
+
+    /* ---- RIFAS ACTIVAS ---- */
+    .section {
+      width:100%; max-width:1050px; margin:0 auto;
+      padding:65px 4vw 23px 4vw;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+    }
+    .section__title {
+      font-size:1.66em;font-weight:900; letter-spacing:-0.012em;text-align:center;
+      background:-webkit-linear-gradient(180deg,var(--gold-soft) 28%,var(--gold-dark) 75%,var(--green-dark) 96%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent; background-clip:text;
+      margin-bottom:1.7em;margin-top:0;
+      filter:drop-shadow(0 2px 18px #e1b86c44);
+    }
+
+    .rifas__cards { display:grid; grid-template-columns:1fr; gap:32px; width:100%; max-width:830px; }
+    @media (min-width:730px){ .rifas__cards {grid-template-columns:1fr 1fr;} }
+    @media (min-width:1050px){ .rifas__cards {grid-template-columns:1fr 1fr 1fr;} }
+    .rifa-card {
+      background: linear-gradient(125deg,rgba(32,32,32,0.92) 6%,rgba(44,44,44,0.99) 90%);
+      border-radius: var(--radius-md);
+      border: 2.5px solid var(--gold-soft);
+      box-shadow: var(--shadow-card);
+      padding: 1.25em 1.2em 1.38em 1.2em;
+      min-height: 370px;
+      display:flex; flex-direction:column; align-items:center; position:relative;
+      overflow:hidden;
+      animation: fadeInCard .85s cubic-bezier(.41,1,.41,.95);
+      opacity:0; transform:translateY(26px) scale(.97);
+      transition:opacity .5s cubic-bezier(.41,1,.33,.91),
+                 transform .43s cubic-bezier(.41,.99,.46,.97);
+    }
+    @keyframes fadeInCard { from{opacity:0;transform:translateY(44px) scale(.95);} 59%{transform:scale(1.10);} to{opacity:1;transform:translateY(0) scale(1);} }
+    .rifa-card__img {
+      width:84%;max-width:165px;height:124px;
+      object-fit:contain; border-radius:18px;
+      background:linear-gradient(150deg,#272313 30%,#343b2e 99%);
+      margin-bottom:20px;
+      border: 2px solid var(--gold-soft);
+      box-shadow:0 1.5px 14px 0 var(--gold-dark),0 1px 2px 0 #0004;
+    }
+    .rifa-card__title {
+      font-size:1.11em;font-weight:900;margin:.4em 0 .1em 0;color:var(--gold-soft);text-align:center;letter-spacing:.003em;
+      filter:drop-shadow(0 1.8px 9px #e1b86c34);
+    }
+    .rifa-card__price { color:var(--green); font-weight:900; margin-bottom:.85em; font-size:.98em;}
+    .rifa-card__progress-wrap {
+      width: 96%; margin: 0.13em auto 1.26em auto; display:flex;flex-direction:column;gap:.20em;
+    }
+    .rifa-card__progress-inner {
+      width:100%; height:13px; border-radius:11px;
+      background: #231f13;
+      border:1.1px solid var(--gold-dark);
+      position:relative; overflow:hidden;
+    }
+    .rifa-card__progress-bar {
+      height:100%;
+      border-radius:12px;
+      background: linear-gradient(90deg, var(--gold-soft) 22%, var(--green) 94%);
+      width:0;
+      transition:width 1.22s cubic-bezier(.41,.92,.49,.97);
+      will-change:width;
+    }
+    .rifa-card__progress-info {
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:.97em;color:var(--gold-dark);font-weight:700;
+      opacity:.80;
+    }
+    .rifa-card__btn {
+      margin-top:auto;
+      background:linear-gradient(94deg, var(--gold-soft) 10%, var(--green) 94%);
+      color:var(--carbon);
+      font-weight:900;
+      border:none; outline:none;
+      border-radius: 21px;
+      padding: .9em 2.1em;
+      font-size: 1.07em;
+      cursor:pointer;
+      box-shadow:0 1.5px 13px 0 var(--gold-dark);
+      margin-bottom:.18em;
+      letter-spacing:0.01em;
+      border:2px solid var(--gold-dark);
+      text-shadow: 0 .5px 11px #fff2;
+      transition: box-shadow .16s,transform .16s,filter .14s;
+    }
+    .rifa-card__btn:active { transform:scale(.97); filter:brightness(.97);}
+    .rifa-card__btn:hover {background:linear-gradient(91deg, var(--green-dark) 20%, var(--gold-soft) 94%); color:var(--white);}
+
+    /* ---- CÓMO FUNCIONA ---- */
+    .steps__list {
+      display:flex;flex-direction:column;align-items:center;gap:27px;
+      width:100%;max-width:770px; margin:2em auto 0 auto;
+      animation: fadeInUp 1s cubic-bezier(.21,.72,.39,.96);
+    }
+    @media (min-width:842px) { .steps__list { flex-direction:row; gap:54px; } }
+    .step {
+      background:rgba(34,34,34,0.94);
+      box-shadow: 0 2.2px 22px 0 #e1b86c25;
+      border-radius:18px;
+      padding:32px 16px 29px 16px;
+      min-width:170px; max-width:240px;
+      display:flex;flex-direction:column;align-items:center;gap:.8em;text-align:center;
+      border: 2.2px solid var(--gold-dark);
+      transition:box-shadow .23s;
+    }
+    .step__icon {
+      font-size:2.3em;
+      background:linear-gradient(124deg, var(--gold-soft) 22%, var(--green) 96%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      filter:drop-shadow(0 3.4px 19px #e1b86c55);
+      margin-bottom:10px;
+      transition:transform .23s;
+    }
+    .step__label { font-size:1.11em; font-weight:900; color:var(--gold-soft); letter-spacing:0.01em; margin-bottom:2px;}
+    .step__desc { color:var(--white); opacity:.68; font-size:.99em; margin:0;}
+
+    /* ---- GANADORES ---- */
+    .awards__wallet-cards{
+      display: flex; flex-direction: column; gap:2.2em;
+      width:100%; max-width:890px; margin:2em auto 1.1em auto;
+      animation: fadeInUp .85s .14s both cubic-bezier(.23,.95,.44,1.02);
+    }
+    @media (min-width:950px){ .awards__wallet-cards{ flex-direction:row; gap:36px; } }
+    .wallet-card {
+      background: rgba(30,30,30,.94);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-wallet);
+      padding:30px 22px 23px 18px;
+      max-width:340px; min-width:0; min-height:175px;
+      margin:0 auto;
+      display:flex; flex-direction:column; gap:.55em;
+      border: 2.8px solid var(--gold-soft);
+      position:relative;
+      animation: popIn .7s cubic-bezier(.62,2.2,.29,.99);
+    }
+    .wallet-card__row {
+      display:flex;justify-content:space-between;align-items:center;gap:.7em;margin-bottom:4px;
+    }
+    .wallet-card__name {
+      font-weight:900; font-size:1.09em; color:var(--green-dark);
+    }
+    .wallet-card__ticket {
+      background: var(--gold-soft); color: var(--carbon);
+      font-weight:800;
+      border-radius:10px;
+      padding:2.2px 15px;
+      display:inline-block;
+      font-size:.99em;letter-spacing:.03em;margin-left:3px;
+      box-shadow:0 0 9px #c49a5046;
+      border:1.2px solid var(--gold-dark);
+    }
+    .wallet-card__meta { font-size:.97em; color:var(--gold-dark);font-weight:700;}
+    .wallet-card__prize { font-weight:900;font-size:1.07em; color:var(--green);}
+    /* ---- NOSOTROS ---- */
+    .about__us {
+      background:rgba(30,30,30,0.77);
+      border-radius:22px;
+      box-shadow:0 1.5px 8px 0 #e1b86c33;
+      padding:44px 22px;
+      max-width:830px;margin:0 auto 3em auto;
+      text-align:center;
+      font-size:1.18em;color:var(--gold-dark); font-weight:700; letter-spacing:.01em;
+      filter:drop-shadow(0 1.2px 13px #e1b86c22);
+      border: 2.5px solid var(--gold-dark);
+    }
+    /* ---- FOOTER ---- */
+    footer {
+      background:rgba(25,25,25,.91);
+      border-radius:22px 22px 0 0;
+      box-shadow:0 2.7px 28px 0 #e1b86c24,0 1.2px 6px 0 #2e7d3238;
+      max-width:900px;margin:52px auto 0 auto;
+      padding:33px 7vw 19px 7vw;
+      display:flex;flex-direction:column;gap:1.2em;align-items:center;justify-content:center;
+      font-size:1.04em;color:var(--gold-soft);
+      border: 2.3px solid var(--gold-dark);
+      border-bottom:none;
+    }
+    .footer__links{
+      display:flex;gap:1.5em;flex-wrap:wrap;justify-content:center;margin-bottom:6px;
+    }
+    .footer__links a { color:var(--green); font-weight:800; text-decoration:none; }
+    .footer__links a:hover { color:var(--gold-soft);}
+    .footer__socials { display:flex; gap:1.2em; }
+    .footer__socials a {
+      color:var(--gold-soft);
+      background:rgba(44,44,44,0.23);
+      border-radius:13px;
+      width:34px; height:34px;
+      display:flex;align-items:center;justify-content:center;
+      transition: background .13s, color .13s;
+      font-size:1.4em;
+      border:1.2px solid var(--gold-dark);
+    }
+    .footer__socials a:hover {background:var(--gold-dark); color:var(--carbon);}
+    .footer__seal {
+      background:linear-gradient(94deg, var(--gold-dark) 14%, var(--green-dark) 85%);
+      padding:5.5px 16px;
+      border-radius:12px;
+      color:var(--white); font-weight:900; margin-top:12px; font-size:1em; letter-spacing:.04em;
+      box-shadow:0 2px 11px 0 #e1b86c32;
+      border:1.5px solid var(--gold-soft);
+      display:inline-block;
+      text-shadow:.5px 1.5px 7px #000a;
+    }
+
+    /* ---- ANIMACIONES VISUALES SCROLL etc. ---- */
+    .fade-in-y, .fade-in-x {
+      opacity:0!important;transform:translateY(24px) scale(.98);transition:all .6s cubic-bezier(.39,1,.36,.99);
+      will-change:transform,opacity;
+    }
+    .fade-in-x {transform:translateX(24px) scale(.99);}
+    .visible { opacity:1!important; transform:none!important;}
+    @media (max-width:510px) {
+      .section,.hero{padding-left:2vw;padding-right:2vw;}
+      .navbar {padding-left:1vw;padding-right:1vw;}
+      footer {padding-left:2vw;padding-right:2vw;}
+      .wallet-card {padding-left:9px;padding-right:8px;}
+      .about__us {padding-left:5vw;padding-right:5vw;}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <div class="navbar">
+      <div class="navbar__logo">
+        <img src="logo.png" alt="Logo Rifas de Compas" />
+        <span style="display:none">Rifas de Compas</span>
+      </div>
+      <button class="navbar__menu-btn" id="menuBtn" aria-label="Abrir menú de navegación">
+        <span class="navbar__menu-icon">
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+      <nav class="navbar__links" id="navbarLinks" aria-label="Menú principal">
+        <div class="navbar__drawer">
+          <ul>
+            <li><a href="#hero">Inicio</a></li>
+            <li><a href="#rifas">Rifas Activas</a></li>
+            <li><a href="#como-funciona">Cómo Funciona</a></li>
+            <li><a href="#ganadores">Ganadores</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+          </ul>
+          <a href="#rifas" class="drawer-cta">Ver Rifas</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO PRINCIPAL -->
+  <main id="hero" class="hero">
+    <div class="hero__logo-wrap">
+      <span class="hero__logo">
+        <img src="logo.png" alt="Logo Rifas de Compas con Causa Bajío"/>
+      </span>
+    </div>
+    <h1 class="hero__title">RIFAS DE COMPAS CON CAUSA</h1>
+    <div class="hero__desc">
+      Sorteos <b>reales</b>, <b>seguros</b> y con <b>causa</b>.<br>
+      ¡Participa, ayuda y gana premios increíbles!
+    </div>
+    <button class="btn-ios" onclick="document.getElementById('rifas').scrollIntoView({behavior:'smooth'})">
+      Ver Rifas Activas
+    </button>
+  </main>
+
+  <!-- RIFAS ACTIVAS -->
+  <section class="section" id="rifas">
+    <h2 class="section__title">Rifas Activas</h2>
+    <div class="rifas__cards">
+      <!-- Moto Italika -->
+      <div class="rifa-card fade-in-y" data-delay="0">
+        <img src="https://i.imgur.com/1sJCEwM.png" alt="Moto Italika" class="rifa-card__img"/>
+        <div class="rifa-card__title">Moto Italika 2024<br><span style="font-size:.93em;font-weight:700;color:var(--white);opacity:.6;">Edición Bajío</span></div>
+        <div class="rifa-card__price">$150 por número</div>
+        <div class="rifa-card__progress-wrap">
+          <div class="rifa-card__progress-inner">
+            <div class="rifa-card__progress-bar" data-value="78"></div>
+          </div>
+          <div class="rifa-card__progress-info">
+            <span>Boletos vendidos</span>
+            <span>156 / 200</span>
+          </div>
+        </div>
+        <button class="rifa-card__btn">Participar</button>
+      </div>
+      <!-- iPhone 15 Pro Max -->
+      <div class="rifa-card fade-in-y" data-delay="80">
+        <img src="https://i.imgur.com/rAzQyZJ.jpg" alt="iPhone 15 Pro Max" class="rifa-card__img"/>
+        <div class="rifa-card__title">iPhone 15 Pro Max</div>
+        <div class="rifa-card__price">$120 por número</div>
+        <div class="rifa-card__progress-wrap">
+          <div class="rifa-card__progress-inner">
+            <div class="rifa-card__progress-bar" data-value="42"></div>
+          </div>
+          <div class="rifa-card__progress-info">
+            <span>Boletos vendidos</span>
+            <span>84 / 200</span>
+          </div>
+        </div>
+        <button class="rifa-card__btn">Participar</button>
+      </div>
+      <!-- Pantalla LG 65 -->
+      <div class="rifa-card fade-in-y" data-delay="160">
+        <img src="https://i.imgur.com/P7cHr6t.jpg" alt="Pantalla LG 65”" class="rifa-card__img"/>
+        <div class="rifa-card__title">Pantalla LG 65” 4K</div>
+        <div class="rifa-card__price">$99 por número</div>
+        <div class="rifa-card__progress-wrap">
+          <div class="rifa-card__progress-inner">
+            <div class="rifa-card__progress-bar" data-value="60"></div>
+          </div>
+          <div class="rifa-card__progress-info">
+            <span>Boletos vendidos</span>
+            <span>120 / 200</span>
+          </div>
+        </div>
+        <button class="rifa-card__btn">Participar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="section" id="como-funciona">
+    <h2 class="section__title">¿Cómo Funciona?</h2>
+    <div class="steps__list">
+      <div class="step fade-in-x" data-delay="20">
+        <span class="step__icon">🛒</span>
+        <div class="step__label">Compra tu número</div>
+        <div class="step__desc">Elige la rifa que prefieres y adquiere tus boletos fácil y rápido, desde tu móvil.</div>
+      </div>
+      <div class="step fade-in-x" data-delay="120">
+        <span class="step__icon">📃</span>
+        <div class="step__label">Publicación de lista</div>
+        <div class="step__desc">Accede en línea a la lista de participantes antes del sorteo para total transparencia.</div>
+      </div>
+      <div class="step fade-in-x" data-delay="220">
+        <span class="step__icon">🎥</span>
+        <div class="step__label">Sorteo en vivo</div>
+        <div class="step__desc">Disfruta la emoción del sorteo transmitido en vivo y conoce al instante si ganaste.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GANADORES -->
+  <section class="section" id="ganadores">
+    <h2 class="section__title">Ganadores</h2>
+    <div class="awards__wallet-cards">
+      <div class="wallet-card fade-in-y" data-delay="30">
+        <div class="wallet-card__row">
+          <div class="wallet-card__name">Andrea Martínez</div>
+          <div class="wallet-card__ticket">#023</div>
+        </div>
+        <div class="wallet-card__meta">10 Oct 2024</div>
+        <div class="wallet-card__prize">Moto Italika 2023</div>
+      </div>
+      <div class="wallet-card fade-in-y" data-delay="120">
+        <div class="wallet-card__row">
+          <div class="wallet-card__name">Roberto Silva</div>
+          <div class="wallet-card__ticket">#079</div>
+        </div>
+        <div class="wallet-card__meta">24 Nov 2024</div>
+        <div class="wallet-card__prize">iPhone 14 Pro</div>
+      </div>
+      <div class="wallet-card fade-in-y" data-delay="190">
+        <div class="wallet-card__row">
+          <div class="wallet-card__name">Lupita Gómez</div>
+          <div class="wallet-card__ticket">#199</div>
+        </div>
+        <div class="wallet-card__meta">27 Ene 2025</div>
+        <div class="wallet-card__prize">Smart TV LG 55”</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section class="section" id="nosotros" style="padding-top:0;">
+    <div class="about__us fade-in-y" data-delay="40">
+      “Nuestra razón de ser es transformar los sorteos en una experiencia con propósito.
+      En Rifas Entre Amigos Guanajuato creemos que divertirse también puede ser una forma de ayudar.
+      Cada número vendido representa una oportunidad de ganar y un aporte a causas reales.”
+    </div>
+  </section>
+
+<div class="footer__extra">
+  <div class="footer__contact" style="display:flex;align-items:center;justify-content:center;gap:1em;font-size:1.1em;margin:5px 0 7px 0;">
+    <span title="Teléfono" style="display:flex;align-items:center;gap:0.45em;color:#e1b86c;font-weight:800;">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 20 20" fill="none" style="vertical-align:-3px;">
+        <path d="M4.2 3.5A2.6 2.6 0 007 6.29v.14c.08.59-.07 1.19-.44 1.66a14.76 14.76 0 005.13 5.13c.47-.37 1.07-.52 1.66-.44h.14A2.6 2.6 0 0016.5 15.8v1.15A1.55 1.55 0 0115.12 18 15.12 15.12 0 013 4.88 1.55 1.55 0 014.35 3.5H4.2z" stroke="#e1b86c" stroke-width="1.5" fill="none"/>
+      </svg>
+      <span style="font-variant-numeric:tabular-nums;color:#e1b86c;">476 132 8415</span>
+    </span>
+  </div>
+  <div class="footer__origin" style="display:flex;justify-content:center;align-items:center;gap:0.6em;font-size:1em;color:#c49a50;font-weight:700;">
+    <svg aria-hidden="true" width="19" height="19" viewBox="0 0 22 22" fill="none" style="vertical-align:-2px;">
+      <circle cx="11" cy="11" r="10" stroke="#c49a50" stroke-width="1.4" fill="none"/>
+      <path d="M7.3 12.2l2.7 2.4 4.5-6.1" stroke="#4caf50" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span style="font-family:'Inter','SF Pro Display',serif;letter-spacing:.02em;">
+      Orgullosamente originarios de San Francisco del Rincón
+    </span>
+  </div>
+</div>
+
+<style>
+  .footer__extra {
+    width:100%;
+    margin-top:17px;
+    border-top:1.5px solid #e1b86c33;
+    padding-top:15px;
+    text-align:center;
+  }
+  .footer__extra .footer__contact,
+  .footer__extra .footer__origin {
+    font-family: 'Inter','SF Pro Display',serif;
+    letter-spacing:0.01em;
+    line-height:1.5;
+  }
+</style>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer__links">
+      <a href="#">Aviso de privacidad</a>
+      <a href="#">Términos y condiciones</a>
+    </div>
+    <div class="footer__socials">
+      <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener"><svg fill="currentColor" viewBox="0 0 24 24" width="1em" height="1em"><path d="M17.353,15.365l.592-3.854H14.278V8.538c0-1.053.516-2.081,2.17-2.081h1.68V3.1a22.122,22.122,0,0,0-3.218-.276c-3.215,0-5.318,1.949-5.318,5.483V11.51H5.1v3.855H9.592v9.326A18.406,18.406,0,0,0,14.278,24h.006A18.406,18.406,0,0,0,17.353,24Z"></path></svg></a>
+      <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener"><svg fill="currentColor" viewBox="0 0 24 24" width="1em" height="1em"><path d="M12,2.163c3.204,0,3.584.012,4.85.07a6.409,6.409,0,0,1,4.708,1.633A6.557,6.557,0,0,1,21.8,6.343a6.409,6.409,0,0,1,1.633,4.708c.058,1.267.07,1.647.07,4.85s-.012,3.584-.07,4.85a6.409,6.409,0,0,1-1.633,4.708A6.557,6.557,0,0,1,19.657,21.8a6.409,6.409,0,0,1-4.708,1.633c-1.267.058-1.647.07-4.85.07s-3.584-.012-4.85-.07A6.409,6.409,0,0,1,2.532,21.8,6.557,6.557,0,0,1,2.2,19.657,6.409,6.409,0,0,1,.564,14.95c-.058-1.267-.07-1.647-.07-4.85s.012-3.584.07-4.85A6.409,6.409,0,0,1,2.2,2.532,6.557,6.557,0,0,1,4.343,2.2,6.409,6.409,0,0,1,9.05.564C10.317.506,10.697.494,12,.494s1.683.012,2.95.07ZM12,0a7.07,7.07,0,0,0-2.938.597,7.088,7.088,0,0,0-2.291,1.56,7.088,7.088,0,0,0-1.565,2.29A7.06,7.06,0,0,0,2,12,7.06,7.06,0,0,0,5.206,21.553a7.088,7.088,0,0,0,2.29,1.565,7.06,7.06,0,0,0,2.29,1.564A7.07,7.07,0,0,0,12,24a7.07,7.07,0,0,0,2.938-.597,7.088,7.088,0,0,0,2.291-1.56,7.088,7.088,0,0,0,1.565-2.29A7.06,7.06,0,0,0,22,12,7.06,7.06,0,0,0,18.794,2.447,7.088,7.088,0,0,0,16.504.882,7.06,7.06,0,0,0,14.214.318,7.07,7.07,0,0,0,12,0Zm0,5.838A6.162,6.162,0,1,0,18.162,12,6.163,6.163,0,0,0,12,5.838Zm0,10.193A4.031,4.031,0,1,1,16.031,12,4.036,4.036,0,0,1,12,16.031Zm6.406-10.845A1.441,1.441,0,1,0,19.847,7.572,1.44,1.44,0,0,0,18.406,5.186Z"></path></svg></a>
+      <a href="https://wa.me/" aria-label="WhatsApp" target="_blank" rel="noopener"><svg fill="currentColor" viewBox="0 0 24 24" width="1em" height="1em"><path d="M20,.5a12,12,0,0,0-18.36,14.16L.22,22.48a1,1,0,0,0,1.34,1.35l7.95-1.39A12,12,0,1,0,20,.5ZM6.23,19.47l-.24.04-4.8.83.8-4.78A10,10,0,1,1,6.23,19.47Zm8-6.17a5.14,5.14,0,0,1-5.21-5.2c0-.74,0-1.49.13-2.17a1.13,1.13,0,0,0-.66-1l-.33-.18a1.13,1.13,0,0,0-1,0L4.3,5.53A1.11,1.11,0,0,0,4,7.08l.18.32A5.64,5.64,0,0,0,7.11,12a5.66,5.66,0,0,0,3.62,2.2l.33.09c.55.16,1.08-.13,1.17-.7a1.13,1.13,0,0,0-.06-.56l-.09-.33A5.66,5.66,0,0,0,14.8,7.27l.17.33a1.14,1.14,0,0,0,1,.27l.32-.17a1.11,1.11,0,0,0,0-1.55Z"></path></svg></a>
+    </div>
+    <div class="footer__seal">
+      BAJÍO - MÉXICO
+    </div>
+  </footer>
+
+  <!-- SCRIPTS: drawer menu, scroll anims, progress bar -->
+  <script>
+    // MENU HAMBURGUER
+    const menuBtn = document.getElementById('menuBtn');
+    const navbarLinks = document.getElementById('navbarLinks');
+    menuBtn.addEventListener('click', function(){
+      this.classList.toggle('active');
+      navbarLinks.classList.toggle('active');
+    });
+    // Cierra menú drawer al hacer click a opción
+    document.querySelectorAll('.navbar__drawer a').forEach(a=>{
+      a.addEventListener('click',()=>{
+        menuBtn.classList.remove('active');
+        navbarLinks.classList.remove('active');
+      })
+    });
+    // Cierre nav si click fuera (mobile)
+    document.addEventListener('click',function(ev){
+      if(window.innerWidth<840 &&
+            navbarLinks.classList.contains('active') &&
+        !navbarLinks.contains(ev.target) &&
+        ev.target!==menuBtn && !menuBtn.contains(ev.target)
+      ) {
+        menuBtn.classList.remove('active');
+        navbarLinks.classList.remove('active');
+      }
+    });
+
+    // Scroll a secciones suaves también desde drawer
+    document.querySelectorAll('nav a[href^="#"], .drawer-cta').forEach(link=>{
+      link.addEventListener('click',e=>{
+        const href=link.getAttribute('href');
+        const target=document.querySelector(href);
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth'});
+        }
+      });
+    });
+
+    // ---- SCROLL ANIMATION ----
+    function animateOnScroll() {
+      document.querySelectorAll('.fade-in-y,.fade-in-x').forEach(el=>{
+        if(el.classList.contains('visible')) return;
+        const rect = el.getBoundingClientRect(),
+              delay = parseInt(el.dataset.delay || '0',10);
+        if(rect.top < window.innerHeight-64) {
+          setTimeout(()=>el.classList.add('visible'), delay);
+        }
+      });
+    }
+    addEventListener('scroll', animateOnScroll, {passive:true});
+    addEventListener('DOMContentLoaded', ()=>{
+      animateOnScroll();
+      setTimeout(animateOnScroll,220);
+    });
+
+    // ---- Progress Bar de rifas ----
+    function animateRifaProgress() {
+      document.querySelectorAll('.rifa-card__progress-bar').forEach(bar=>{
+        let v = Math.max(0, Math.min(100, parseInt(bar.dataset.value||'0',10)));
+        bar.style.width = '0%';
+        setTimeout(()=>{bar.style.width = v+'%';}, 250);
+      });
+    }
+    addEventListener('DOMContentLoaded', animateRifaProgress);
+
+    // -- Focus visual-a11y
+    document.body.addEventListener('keydown', function(e){
+      if(e.key==="Tab") document.body.classList.add('show-focus');
+    });
+
+    // Preload logo
+    (()=>{var i = new Image(); i.src = 'logo.png';})();
+  </script>
+</body>
+</html>
