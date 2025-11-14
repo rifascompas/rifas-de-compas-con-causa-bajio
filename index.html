@@ -332,31 +332,171 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer id="siteFooter" role="contentinfo">
-    <div class="footer__links">
-      <a href="#">Aviso de privacidad</a>
-      <a href="#">Términos y condiciones</a>
-    </div>
+<!-- Fragmento para reemplazar la sección <footer> de tu index.html -->
+<!-- Incluye estilo, HTML y un pequeño script para accesibilidad y edición de enlaces -->
+<footer class="footer-card" id="siteFooter" role="contentinfo" aria-label="Pie de página Rifas de Compas">
+  <!-- Enlaces legales -->
+  <div class="footer-links-row" role="navigation" aria-label="Enlaces legales">
+    <a class="legal" id="privacyLink" href="#" rel="noopener">Aviso de privacidad</a>
+    <a class="legal" id="termsLink" href="#" rel="noopener">Términos y condiciones</a>
+  </div>
 
-    <div class="footer__socials" aria-label="Redes sociales">
-      <a id="facebookLink" href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.353 15.365l.592-3.854H14.278V8.538c0-1.053.516-2.081 2.17-2.081h1.68V3.1a22.122 22.122 0 0 0-3.218-.276c-3.215 0-5.318 1.949-5.318 5.483V11.51H5.1v3.855H9.592v9.326A18.406 18.406 0 0 0 14.278 24h.006A18.406 18.406 0 0 0 17.353 24z"/></svg></a>
-      <a id="instagramLink" href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07a6.409 6.409 0 0 1 4.708 1.633 6.557 6.557 0 0 1 1.633 4.708c.058 1.267.07 1.647.07 4.85s-.012 3.584-.07 4.85a6.409 6.409 0 0 1-1.633 4.708A6.557 6.557 0 0 1 19.657 21.8a6.409 6.409 0 0 1-4.708 1.633c-1.267.058-1.647.07-4.85.07s-3.584-.012-4.85-.07A6.409 6.409 0 0 1 2.532 21.8 6.557 6.557 0 0 1 2.2 19.657 6.409 6.409 0 0 1 .564 14.95c-.058-1.267-.07-1.647-.07-4.85s.012-3.584.07-4.85A6.409 6.409 0 0 1 2.2 2.532 6.557 6.557 0 0 1 4.343 2.2 6.409 6.409 0 0 1 9.05.564C10.317.506 10.697.494 12 .494zM12 5.838A6.162 6.162 0 1 0 18.162 12 6.163 6.163 0 0 0 12 5.838zM12 16.031A4.031 4.031 0 1 1 16.031 12 4.036 4.036 0 0 1 12 16.031z"/></svg></a>
-      <a id="whatsappLink" href="#" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 .5a12 12 0 0 0-18.36 14.16L.22 22.48a1 1 0 0 0 1.34 1.35l7.95-1.39A12 12 0 1 0 20 .5zM6.23 19.47l-.24.04-4.8.83.8-4.78A10 10 0 1 1 6.23 19.47z"/></svg></a>
-    </div>
+  <!-- Iconos de apps / redes con estilo profesional -->
+  <div class="footer-icons" role="group" aria-label="Redes sociales y contacto">
+    <a class="icon-btn" id="facebookBtn" href="#" aria-label="Abrir Facebook" rel="noopener" title="Facebook">
+      <!-- Icono estilizado: degradado dorado -->
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="g-fb" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#e1b86c"/>
+            <stop offset="1" stop-color="#c49a50"/>
+          </linearGradient>
+        </defs>
+        <rect width="24" height="24" rx="5" fill="transparent"></rect>
+        <path d="M15.12 8.5h1.9V5.5h-1.9c-1.4 0-2.1.7-2.1 2v1.1H11v2.1h2.02V19h2.46v-6.3H16.5l.62-2.1h-1z" fill="url(#g-fb)"/>
+      </svg>
+    </a>
 
-    <div class="footer__seal">BAJÍO - MÉXICO</div>
+    <a class="icon-btn" id="instagramBtn" href="#" aria-label="Abrir Instagram" rel="noopener" title="Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="g-ig" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#e1b86c"/>
+            <stop offset="0.6" stop-color="#c49a50"/>
+            <stop offset="1" stop-color="#4caf50"/>
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="20" height="20" rx="5" fill="url(#g-ig)"></rect>
+        <circle cx="12" cy="12" r="3.2" fill="#080808"/>
+        <circle cx="17.6" cy="6.6" r="0.7" fill="rgba(255,255,255,0.9)"/>
+      </svg>
+    </a>
 
-    <div style="width:100%; margin-top:12px; border-top:1px solid rgba(225,184,108,0.06); padding-top:12px; text-align:center; color:var(--gold-soft); font-weight:700;">
-      <div style="margin-bottom:6px;">
-        <span style="display:inline-flex;align-items:center;gap:10px;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="color:var(--gold-soft)"><path d="M21 16.5v3a1 1 0 0 1-1.1 1A19.9 19.9 0 0 1 3.5 6.1 1 1 0 0 1 4.5 5h3a1 1 0 0 1 1 .8c.2 1.1.6 2.1 1.2 3a1 1 0 0 1 .1 1l-1 .9A14 14 0 0 0 21 16.5z"/></svg>
-          <span>476 132 8415</span>
-        </span>
+    <a class="icon-btn" id="whatsappBtn" href="#" aria-label="Abrir WhatsApp" rel="noopener" title="WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="g-wa" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#4caf50"/>
+            <stop offset="1" stop-color="#2e7d32"/>
+          </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="10" fill="url(#g-wa)"/>
+        <path d="M17.2 14.2c-.4-.2-2.4-1.2-2.8-1.4-.4-.2-.7-.2-1.1.2-.4.4-1.2 1.4-1.5 1.7-.3.3-.6.4-1 .2-1-.4-3.4-2-4.5-3.4-.4-.5 0-.7.3-1 .3-.3.6-.7.9-1 .3-.3.5-.4.8-.7.3-.3.2-.6 0-.8-.2-.2-1.1-2-1.5-2.8-.4-.7-.8-.6-1.1-.6-.3 0-.6 0-.9 0-.3 0-.7.1-1 .5-.3.4-1 1.2-1 2.9s1 3.2 1.1 3.4c.1.2 1.9 3 4.6 4.5 3.2 1.8 3.2 1.5 3.8 1.4.6-.1 2-1.1 2.3-2.1.3-1 .3-1.8.2-1.9-.1-.2-.4-.3-.8-.5z" fill="#08120b"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Etiquetas pequeñas explicativas -->
+  <div class="icon-labels" aria-hidden="true">
+    <div class="icon-label">Facebook</div>
+    <div class="icon-label">Instagram</div>
+    <div class="icon-label">WhatsApp</div>
+  </div>
+
+  <!-- Sello y contacto -->
+  <div class="footer-seal-row" role="contentinfo">
+    <div class="seal" aria-hidden="false">BAJÍO - MÉXICO</div>
+
+    <div class="contact-line" aria-label="Teléfono">
+      <div class="phone">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M21 16.5v3a1 1 0 0 1-1.1 1A19.9 19.9 0 0 1 3.5 6.1 1 1 0 0 1 4.5 5h3a1 1 0 0 1 1 .8c.2 1.1.6 2.1 1.2 3a1 1 0 0 1 .1 1l-1 .9A14 14 0 0 0 21 16.5z" fill="currentColor"/>
+        </svg>
+        <a id="phoneLink" href="tel:+524761328415">476 132 8415</a>
       </div>
-      <div>Orgullosamente originarios de San Francisco del Rincón</div>
+      <div class="origin">Orgullosamente originarios de San Francisco del Rincón</div>
     </div>
-  </footer>
+  </div>
+
+  <style>
+    /* Scoped styles for this footer fragment (keeps variables from main CSS) */
+    .footer-card {
+      max-width:980px;
+      margin: 28px auto;
+      padding: 22px 28px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(10,10,10,0.96), rgba(6,6,6,0.99));
+      border: 1px solid rgba(225,184,108,0.05);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.7), 0 2px 10px rgba(225,184,108,0.04) inset;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold-soft, #e1b86c);
+      font-weight: 700;
+    }
+
+    .footer-links-row { display:flex; gap:22px; align-items:center; justify-content:center; width:100%; padding-top:6px; }
+    .footer-links-row a.legal { color: var(--green, #4caf50); text-decoration:none; font-weight:800; font-size:0.98rem; padding:6px 10px; border-radius:10px; transition: background .18s, transform .12s; }
+    .footer-links-row a.legal:hover, .footer-links-row a.legal:focus { background: rgba(76,175,80,0.06); color: var(--gold-soft); transform: translateY(-2px); outline: none; }
+
+    .footer-icons { display:flex; gap:14px; align-items:center; justify-content:center; padding:10px 0; }
+    .icon-btn {
+      --size: clamp(44px, 3.6vw, 52px);
+      width: var(--size); height: var(--size);
+      display:inline-grid; place-items:center;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 8px 26px rgba(0,0,0,0.6), 0 2px 8px rgba(225,184,108,0.06);
+      transition: transform .16s cubic-bezier(.2,.9,.2,1), box-shadow .18s, background .18s;
+      color: var(--gold-soft);
+      text-decoration:none;
+    }
+    .icon-btn svg { width: 56%; height:56%; display:block; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6)); }
+    .icon-btn:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 22px 72px rgba(0,0,0,0.7); }
+    .icon-btn:active { transform: translateY(-2px) scale(.99); }
+    .icon-btn:focus { outline: 3px solid rgba(225,184,108,0.18); outline-offset: 4px; }
+
+    .icon-labels { display:flex; gap:14px; margin-top:6px; justify-content:center; align-items:center; }
+    .icon-label { font-size:0.86rem; color: #d7c69a; opacity:0.96; font-weight:700; min-width: 54px; text-align:center; }
+
+    .footer-seal-row { width:100%; border-top: 1px solid rgba(225,184,108,0.06); margin-top:12px; padding-top:14px; display:flex; gap:18px; align-items:center; justify-content:center; flex-direction:column; }
+    .seal { display:inline-flex; align-items:center; gap:8px; background: linear-gradient(90deg, var(--green-dark, #2e7d32), var(--gold-dark, #c49a50)); color:white; padding:8px 14px; border-radius:12px; font-weight:900; box-shadow: 0 8px 26px rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.04); }
+
+    .contact-line { display:flex; gap:12px; align-items:center; color:var(--gold-soft); font-weight:800; flex-wrap:wrap; justify-content:center; }
+    .phone { display:inline-flex; gap:8px; align-items:center; color:var(--gold-soft); background: rgba(225,184,108,0.05); padding:8px 12px; border-radius:10px; border:1px solid rgba(225,184,108,0.04); }
+    .phone a { color:var(--gold-soft); text-decoration:none; font-weight:800; }
+    .origin { color: #e6c67e; font-weight:800; margin-top:6px; }
+
+    @media (max-width:520px) {
+      .footer-card { padding:16px; border-radius:14px; }
+      .footer-links-row { gap:12px; flex-direction:column; }
+      .icon-label { font-size:0.78rem; min-width:48px; }
+    }
+  </style>
+
+  <script>
+    // Small helper to set links via data attributes without editing the fragment.
+    // Example usage in HTML: <a id="facebookBtn" data-link="https://facebook.com/tuPagina">...</a>
+    (function initFooterLinks(){
+      const ids = ['facebookBtn','instagramBtn','whatsappBtn','privacyLink','termsLink'];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(!el) return;
+        const url = el.getAttribute('data-link');
+        if(url && url.trim().length) el.href = url;
+        // Ensure keyboard activation (Enter/Space) triggers link
+        el.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            el.click();
+          }
+        });
+      });
+
+      // Accessibility: make icon buttons focusable if they are anchors (already are),
+      // add aria-describedby for the phone link to explain click-to-call on mobile.
+      const phone = document.getElementById('phoneLink');
+      if(phone) phone.setAttribute('aria-describedby','phoneDesc');
+      const desc = document.createElement('span');
+      desc.id = 'phoneDesc';
+      desc.className = 'sr-only';
+      desc.textContent = 'Haz clic para llamar';
+      phone?.parentElement?.appendChild(desc);
+    })();
+  </script>
+</footer>
 
   <script>
     /************************************************************************
